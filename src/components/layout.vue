@@ -7,11 +7,9 @@
       </q-toolbar-title>
     </q-toolbar>
 
-    <q-transition appear :enter="enterName" :leave="leaveName">
-      <keep-alive>
-        <router-view />
-      </keep-alive>
-    </q-transition>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </q-layout>
 </template>
 
@@ -19,21 +17,6 @@
 import './store'
 
 export default {
-  data () {
-    return {
-      enterName: '',
-      leaveName: ''
-    }
-  },
-  watch: {
-    $route (to, from) {
-      const toDepth = to.path.split('/').length
-      const fromDepth = from.path.split('/').length
-
-      this.enterName = toDepth > fromDepth ? 'slideInRight' : 'slideInLeft'
-      this.leaveName = toDepth > fromDepth ? 'slideOutLeft' : 'slideOutRight'
-    }
-  }
 }
 </script>
 
