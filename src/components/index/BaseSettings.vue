@@ -40,10 +40,18 @@ export default {
   },
   computed: {
     baseOptions () {
-      return this.bases.map((v, i) => ({
-        label: v.name.replace('（', '<small>（').replace('）', '）</small>'),
-        value: i
-      }))
+      return this.bases.map((v, i) => {
+        let label = v.name.replace('（', '<small>（').replace('）', '）</small>')
+
+        if (v.is_limited) {
+          label += '<small>［期間限定］</small>'
+        }
+
+        return {
+          label,
+          value: i
+        }
+      })
     },
     basePrice () {
       if (!this.bases.length) {
