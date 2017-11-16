@@ -44,7 +44,6 @@ export default {
     goNext () {
       this.$router.push({
         name: 'result',
-        // props: this.$data,
         query: this.$data
       })
     }

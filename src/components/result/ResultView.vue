@@ -22,10 +22,6 @@
       :results="results"
       :timestamp="timestamp"
     ></result-list>
-
-    <!-- <q-btn class="fixed-bottom-right" round small color="primary" @click="updateTimestamp">
-      <q-icon name="refresh" />
-    </q-btn> -->
   </div>
 </template>
 
