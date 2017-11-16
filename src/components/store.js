@@ -54,7 +54,6 @@ axios.get('toppings?view=JSON')
       combinations[i].total = total
     })
 
-    store.toppings.push(...fields)
     store.toppingCombinations.push(...combinations)
   })
 
