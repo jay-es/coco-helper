@@ -5,7 +5,7 @@
         <q-item-main>
           <template v-for="item of itemSet">
             {{ item.name }}
-            <small v-if="item.is_limited">
+            <small v-if="item.expire_date">
               ［期間限定］
             </small>
             <br>

@@ -43,7 +43,7 @@ export default {
       return this.bases.map((v, i) => {
         let label = v.name.replace('（', '<small>（').replace('）', '）</small>')
 
-        if (v.is_limited) {
+        if (v.expire_date) {
           label += '<small>［期間限定］</small>'
         }
 
