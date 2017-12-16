@@ -32,7 +32,6 @@ export default {
   data () {
     return {
       baseIndex: 0,
-      bases: store.bases,
       hotAmount: 0,
       isAddSource: false,
       riceAmount: 300
@@ -40,7 +39,7 @@ export default {
   },
   computed: {
     baseOptions () {
-      return this.bases.map((v, i) => {
+      return store.bases.map((v, i) => {
         let label = v.name.replace('（', '<small>（').replace('）', '）</small>')
 
         if (v.expire_date) {
@@ -54,11 +53,11 @@ export default {
       })
     },
     basePrice () {
-      if (!this.bases.length) {
+      if (!store.bases.length) {
         return 0
       }
 
-      return this.bases[this.baseIndex].price
+      return store.bases[this.baseIndex].price
     },
     baseTotal () {
       const ricePrice = (() => {
@@ -69,7 +68,7 @@ export default {
           return 0
         }
 
-        return (this.riceAmount - 300) * this.bases[this.baseIndex].riceRate
+        return (this.riceAmount - 300) * store.bases[this.baseIndex].riceRate
       })()
 
       const hotPrice = this.hotAmount * 21

@@ -20,7 +20,6 @@
     <result-list
       :base-total="baseTotal"
       :results="results"
-      :timestamp="timestamp"
     ></result-list>
   </div>
 </template>
@@ -39,27 +38,29 @@ export default {
     return {
       counts: ['1', '2', '3'],
       sortOrder: 'random',
-      timestamp: 0,
-      toppingCombinations: store.toppingCombinations
+      timestamp: 0
     }
   },
   activated () {
     this.updateTimestamp()
   },
   computed: {
-    // 個数と値段で絞った配列
+    // 条件に合う組み合わせの配列
     filtered () {
       const counts = this.counts.map(v => Number(v))
 
-      return this.toppingCombinations.filter((item) => {
-        if (counts.indexOf(item.length) === -1) {
+      return store.toppingCombinations.filter((itemSet) => {
+        // 個数
+        if (counts.indexOf(itemSet.length) === -1) {
           return false
         }
 
-        const price = this.baseTotal + item.total
+        // 価格
+        const price = this.baseTotal + itemSet.total
         return price >= this.minPrice && price < this.maxPrice
       })
     },
+    // filteredを並べ替えた配列
     results () {
       const filtered = this.filtered.slice(0, this.timestamp)
 
@@ -86,5 +87,13 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style>
+.q-pagination .q-btn {
+  padding: 0 10px !important
+}
+.q-pagination .q-input {
+  margin-right: 5px;
+  margin-left: 5px;
+  max-width: 6rem;
+}
 </style>

@@ -1,10 +1,13 @@
 import axios from 'axios'
+import Vue from 'vue'
 
-const store = {
-  bases: [],
-  toppings: [],
-  toppingCombinations: []
-}
+const store = new Vue({
+  data: {
+    bases: [],
+    toppings: [],
+    toppingCombinations: []
+  }
+})
 
 const createCombinations = (arr, maxCount) => {
   const ret = [];
@@ -29,32 +32,33 @@ axios.defaults.headers.common.Authorization = 'Bearer keyxkfl5JQ2YPKU8i'
 
 // ベースを取得
 axios.get('bases?view=JSON')
-  .then((res) => {
-    const fields = res.data.records.map(v => v.fields)
-    store.bases.push(...fields)
+  .then(({ data }) => {
+    const bases = data.records.map(v => v.fields)
+    store.bases.push(...bases)
   })
 
 // トッピングを取得
 axios.get('toppings?view=JSON')
-  .then((res) => {
-    const fields = res.data.records.map(v => v.fields)
-    store.toppings.push(...fields)
+  .then(({ data }) => {
+    const toppings = data.records.map(v => v.fields)
+    store.toppings.push(...toppings)
 
-    const combinations = createCombinations(fields, 3)
+    // トッピングの組み合わせを作成
+    const toppingCombinations = createCombinations(toppings, 3)
 
     // 「トッピングなし」を追加
-    combinations.unshift([{
+    toppingCombinations.unshift([{
       name: 'トッピングなし',
       price: 0
     }])
 
-    // 合計金額
-    combinations.forEach((v, i) => {
-      const total = v.reduce((prev, curr) => prev + curr.price, 0)
-      combinations[i].total = total
+    // IDと合計金額プロパティを付与
+    toppingCombinations.forEach((v, i) => {
+      toppingCombinations[i].id = v.map(v => v.name).join()
+      toppingCombinations[i].total = v.reduce((prev, curr) => prev + curr.price, 0)
     })
 
-    store.toppingCombinations.push(...combinations)
+    store.toppingCombinations.push(...toppingCombinations)
   })
 
 export default store

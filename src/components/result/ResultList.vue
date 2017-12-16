@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-list separator v-if="pageItems.length">
-      <q-item v-for="itemSet of pageItems" :key="timestamp">
+      <q-item v-for="itemSet of pageItems" :key="itemSet.id">
         <q-item-main>
           <template v-for="item of itemSet">
             {{ item.name }}
@@ -33,7 +33,7 @@ const PER_PAGE = 5
 
 export default {
   name: 'result-list',
-  props: ['baseTotal', 'results', 'timestamp'],
+  props: ['baseTotal', 'results'],
   data () {
     return {
       page: 1
@@ -55,8 +55,6 @@ export default {
     results () {
       this.page = 1
     }
-  },
-  methods: {
   }
 }
 </script>
