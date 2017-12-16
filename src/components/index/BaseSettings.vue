@@ -9,12 +9,14 @@
     </p>
 
     <p>
-      <label class="caption">ライス:</label> {{ riceAmount }}g
+      <label class="caption">ライス:</label>
+      {{ riceAmount }}g
       <q-slider snap markers v-model="riceAmount" :min="200" :max="700" :step="100" />
     </p>
 
     <p>
-      <label class="caption">辛さ:</label> {{ hotAmount | hotFilter }}
+      <label class="caption">辛さ:</label>
+      <span v-html="this.$options.filters.hotFilter(hotAmount)" />
       <q-slider snap markers v-model="hotAmount" :min="0" :max="5" />
     </p>
 
@@ -83,7 +85,7 @@ export default {
         return '普通'
       }
 
-      return `${value}辛`
+      return `${value}<small class="unit">辛</small>`
     }
   },
   watch: {

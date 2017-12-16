@@ -37,11 +37,16 @@ export default new VueRouter({
           name: 'result',
           path: '/search/result/',
           component: load('result/ResultView'),
-          props: route => ({
-            baseTotal: Number(route.query.baseTotal),
-            maxPrice: Number(route.query.maxPrice),
-            minPrice: Number(route.query.minPrice)
-          })
+          props: route => {
+            const q = route.query
+            return {
+              baseTotal: Number(q.baseTotal),
+              categoryId: q.categoryId,
+              maxPrice: Number(q.maxPrice),
+              minPrice: Number(q.minPrice),
+              toppingId: q.toppingId
+            }
+          }
         }
       ]
     },

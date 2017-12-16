@@ -33,7 +33,7 @@ export default {
   components: {
     ResultList
   },
-  props: ['baseTotal', 'maxPrice', 'minPrice'],
+  props: ['baseTotal', 'categoryId', 'maxPrice', 'minPrice', 'toppingId'],
   data () {
     return {
       counts: ['1', '2', '3'],
@@ -48,10 +48,23 @@ export default {
     // 条件に合う組み合わせの配列
     filtered () {
       const counts = this.counts.map(v => Number(v))
+      const { categoryId, toppingId } = this
+      const fixedCategory = store.categories[categoryId]
+      const fixedTopping = store.toppings[toppingId]
 
       return store.toppingCombinations.filter((itemSet) => {
         // 個数
         if (counts.indexOf(itemSet.length) === -1) {
+          return false
+        }
+
+        // カテゴリー指定（組み合わせ内の全トッピングが該当しなければ終了）
+        if (fixedCategory && itemSet.every(v => v.category !== fixedCategory)) {
+          return false
+        }
+
+        // トッピング指定（組み合わせ内の全トッピングが該当しなければ終了）
+        if (fixedTopping && itemSet.every(v => v !== fixedTopping)) {
           return false
         }
 

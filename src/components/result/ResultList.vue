@@ -48,7 +48,7 @@ export default {
     },
     pageItems () {
       const start = (this.page - 1) * PER_PAGE
-      return this.results.slice(start, start + 5)
+      return this.results.slice(start, start + PER_PAGE)
     }
   },
   watch: {

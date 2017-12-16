@@ -4,6 +4,7 @@ import Vue from 'vue'
 const store = new Vue({
   data: {
     bases: [],
+    categories: [],
     toppings: [],
     toppingCombinations: []
   }
@@ -42,6 +43,16 @@ axios.get('toppings?view=JSON')
   .then(({ data }) => {
     const toppings = data.records.map(v => v.fields)
     store.toppings.push(...toppings)
+
+    // カテゴリーを抽出
+    const categories = store.categories
+    toppings.forEach((v) => {
+      const cat = v.category
+
+      if (categories.indexOf(cat) === -1) {
+        categories.push(cat)
+      }
+    })
 
     // トッピングの組み合わせを作成
     const toppingCombinations = createCombinations(toppings, 3)
