@@ -22,7 +22,7 @@
 
     <q-btn color="primary" class="full-width" @click="goNext">絞り込む</q-btn>
 
-    <p class="copyright">&copy;jshindo-gladd</p>
+    <p class="copyright">&copy; J. Shindo</p>
   </div>
 </template>
 
